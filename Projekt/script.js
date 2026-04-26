@@ -58,25 +58,28 @@ document.getElementById("contactForm").addEventListener("submit", function(e) {
 });
 
 // FETCH JSON (NOWE ZADANIE)
-fetch('data.json')
-    .then(response => response.json())
-    .then(data => {
+document.addEventListener("DOMContentLoaded", function () {
 
-        // Skills
-        let skillsList = document.getElementById("skills");
-        data.skills.forEach(skill => {
-            let li = document.createElement("li");
-            li.textContent = skill;
-            skillsList.appendChild(li);
-        });
+    fetch('data.json')
+        .then(response => response.json())
+        .then(data => {
 
-        // Projects
-        let projectsList = document.getElementById("projects");
-        data.projects.forEach(project => {
-            let li = document.createElement("li");
-            li.textContent = project;
-            projectsList.appendChild(li);
-        });
+            let skillsList = document.getElementById("skills");
+            let projectsList = document.getElementById("projects");
 
-    })
-    .catch(error => console.log("Błąd JSON:", error));
+            data.skills.forEach(skill => {
+                let li = document.createElement("li");
+                li.textContent = skill;
+                skillsList.appendChild(li);
+            });
+
+            data.projects.forEach(project => {
+                let li = document.createElement("li");
+                li.textContent = project;
+                projectsList.appendChild(li);
+            });
+
+        })
+        .catch(error => console.log("Błąd JSON:", error));
+
+});
