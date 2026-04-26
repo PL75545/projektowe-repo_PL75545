@@ -1,0 +1,14 @@
+{
+  "skills": [
+    "C# - programowanie aplikacji",
+    "SQL - podstawy baz danych",
+    "HTML - tworzenie stron internetowych",
+    "Praca w zespole",
+    "Język angielski"
+  ],
+  "projects": [
+    "Kalkulator w C# - użycie zmiennych i pętli",
+    "Automat vendingowy - symulacja systemu sprzedaży",
+    "Analizator funkcji F(x) - Windows Forms"
+  ]
+}
