@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Mykola Vynnichyk - CV</title>
+
+    <!-- MOTYW -->
+    <link id="theme" rel="stylesheet" href="red.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Mykola Vynnichyk ID studenta: 75545 - CV</h1>
+</header>
+
+<!-- KONTROLKI -->
+<button onclick="changeTheme()">Zmień motyw</button>
+<button onclick="toggleProjekty()">Pokaż / Ukryj projekty</button>
+
+<main>
+
+    <section>
+        <h2>Kontakt</h2>
+        <p>Email: <a href="mailto:mvynnic1@stu.vistula.edu.pl">mvynnic1@stu.vistula.edu.pl</a></p>
+        <p>Telefon: <a href="tel:881469191">881469191</a></p>
+        <p>Miasto: Warszawa</p>
+
+        <h3>Formularz kontaktowy</h3>
+
+        <form id="contactForm" novalidate>
+            <input type="text" id="name" placeholder="Imię" required>
+            <input type="text" id="surname" placeholder="Nazwisko" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <textarea id="message" placeholder="Wiadomość" required></textarea>
+            <button type="submit">Wyślij</button>
+        </form>
+
+        <p id="error"></p>
+    </section>
+
+    <section>
+        <h2>O mnie</h2>
+        <p>
+            Jestem studentem Vistuli, pasjonuję się programowaniem w języku C#.
+            Interesuję się tworzeniem aplikacji oraz nauką nowych technologii IT.
+        </p>
+    </section>
+
+    
+    <section>
+        <h2>Umiejętności</h2>
+        <ul id="skills"></ul>
+    </section>
+
+    <section>
+        <h2>Doświadczenie</h2>
+
+        <article>
+            <h3>Projekt uczelniany w C#</h3>
+            <p>Stworzenie aplikacji konsolowej w C# w ramach zajęć.</p>
+        </article>
+
+        <article>
+            <h3>CV online</h3>
+            <p>Stworzenie strony internetowej w HTML i CSS.</p>
+        </article>
+    </section>
+
+    
+    <section id="projekty">
+        <h2>Projekty</h2>
+        <ul id="projects"></ul>
+    </section>
+
+    <section>
+        <h2>Edukacja</h2>
+        <p>Vistula University - Informatyka (studia licencjackie)</p>
+    </section>
+
+    <section>
+        <h2>Linki</h2>
+        <p>
+            <a href="https://github.com/PL75545/CV-PL75545.git" target="_blank">GitHub</a>
+        </p>
+        <p>
+            <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
+        </p>
+    </section>
+
+    <section>
+        <h2>Zdjęcie</h2>
+        <img src="photo1.jpg.jpg" alt="Moje zdjęcie" width="150">
+    </section>
+
+</main>
+
+<footer>
+    <p>2026</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>

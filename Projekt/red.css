@@ -1,0 +1,58 @@
+/* Ogólny styl strony */
+body {
+    background-color: #ffe5e5;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    color: #330000;
+}
+
+/* Nagłówek główny */
+h1 {
+    color: #cc0000;
+    text-align: center;
+    font-size: 36px;
+}
+
+/* Podnagłówki */
+h2 {
+    color: #990000;
+    border-bottom: 2px solid #cc0000;
+    padding-bottom: 5px;
+}
+
+/* Sekcje */
+section {
+    background-color: #fff0f0;
+    border: 2px solid #cc0000;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+/* Linki */
+a {
+    color: #cc0000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #990000;
+}
+
+/* Listy */
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+/* Obrazki (jeśli są) */
+img {
+    border: 3px solid #cc0000;
+    border-radius: 10px;
+    margin-top: 10px;
+}
