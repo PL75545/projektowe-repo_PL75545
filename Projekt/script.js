@@ -58,28 +58,82 @@ document.getElementById("contactForm").addEventListener("submit", function(e) {
 });
 
 // FETCH JSON (NOWE ZADANIE)
-document.addEventListener("DOMContentLoaded", function () {
+fetch('data.json')
+    .then(response => response.json())
+    .then(data => {
 
-    fetch('data.json')
-        .then(response => response.json())
-        .then(data => {
+        // Skills
+        let skillsList = document.getElementById("skills");
+        data.skills.forEach(skill => {
+            let li = document.createElement("li");
+            li.textContent = skill;
+            skillsList.appendChild(li);
+        });
 
-            let skillsList = document.getElementById("skills");
-            let projectsList = document.getElementById("projects");
+        // Projects
+        let projectsList = document.getElementById("projects");
+        data.projects.forEach(project => {
+            let li = document.createElement("li");
+            li.textContent = project;
+            projectsList.appendChild(li);
+        });
 
-            data.skills.forEach(skill => {
-                let li = document.createElement("li");
-                li.textContent = skill;
-                skillsList.appendChild(li);
-            });
+    })
+    .catch(error => console.log("Błąd JSON:", error));
 
-            data.projects.forEach(project => {
-                let li = document.createElement("li");
-                li.textContent = project;
-                projectsList.appendChild(li);
-            });
+    // ===== LOCAL STORAGE - DODATKOWE UMIEJĘTNOŚCI =====
 
-        })
-        .catch(error => console.log("Błąd JSON:", error));
+// Funkcja wyświetlająca zapisane dane z localStorage
+function displayNotes() {
+    let list = document.getElementById("notesList");
+    list.innerHTML = "";
 
-});
+    // Pobieramy dane z localStorage (jeśli brak → pusta tablica)
+    let notes = JSON.parse(localStorage.getItem("notes")) || [];
+
+    // Tworzymy elementy listy
+    notes.forEach((note, index) => {
+        let li = document.createElement("li");
+        li.textContent = note;
+
+        // Przycisk usuwania
+        let btn = document.createElement("button");
+        btn.textContent = "Usuń";
+        btn.style.marginLeft = "10px";
+
+        btn.onclick = () => deleteNote(index);
+
+        li.appendChild(btn);
+        list.appendChild(li);
+    });
+}
+
+// Funkcja dodawania nowego elementu
+function addNote() {
+    let input = document.getElementById("noteInput");
+    let value = input.value.trim();
+
+   if (value === "") return;
+
+    let notes = JSON.parse(localStorage.getItem("notes")) || [];
+
+    notes.push(value);
+
+    localStorage.setItem("notes", JSON.stringify(notes));
+
+    
+    input.value = "";
+    displayNotes();
+}
+
+// Funkcja usuwania elementu
+function deleteNote(index) {
+    let notes = JSON.parse(localStorage.getItem("notes")) || [];
+    notes.splice(index, 1);
+    localStorage.setItem("notes", JSON.stringify(notes));
+
+    displayNotes();
+}
+
+// Po załadowaniu strony wyświetlamy dane
+window.addEventListener("load", displayNotes);
