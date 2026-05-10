@@ -21,7 +21,7 @@ function toggleProjekty() {
 }
 
 
-//  WALIDACJA FORMULARZA 
+// WALIDACJA + WYSYŁANIE FORMULARZA
 document.getElementById("contactForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
@@ -53,11 +53,30 @@ document.getElementById("contactForm").addEventListener("submit", function(e) {
         return;
     }
 
+    // ===== SEND TO BACKEND (NODE.JS) =====
+    fetch("/send", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: name,
+            surname: surname,
+            email: email,
+            message: message
+        })
+    });
+
+    // success message
     error.style.color = "green";
     error.textContent = "Formularz wysłany poprawnie!";
+
+    // reset form
+    document.getElementById("contactForm").reset();
 });
 
-// FETCH JSON (NOWE ZADANIE)
+
+// FETCH JSON (skills + projects)
 fetch('data.json')
     .then(response => response.json())
     .then(data => {
@@ -81,22 +100,19 @@ fetch('data.json')
     })
     .catch(error => console.log("Błąd JSON:", error));
 
-    // ===== LOCAL STORAGE - DODATKOWE UMIEJĘTNOŚCI =====
 
-// Funkcja wyświetlająca zapisane dane z localStorage
+
+// LOCAL STORAGE
 function displayNotes() {
     let list = document.getElementById("notesList");
     list.innerHTML = "";
 
-    // Pobieramy dane z localStorage (jeśli brak → pusta tablica)
     let notes = JSON.parse(localStorage.getItem("notes")) || [];
 
-    // Tworzymy elementy listy
     notes.forEach((note, index) => {
         let li = document.createElement("li");
         li.textContent = note;
 
-        // Przycisk usuwania
         let btn = document.createElement("button");
         btn.textContent = "Usuń";
         btn.style.marginLeft = "10px";
@@ -108,46 +124,27 @@ function displayNotes() {
     });
 }
 
-// Funkcja dodawania nowego elementu
 function addNote() {
     let input = document.getElementById("noteInput");
     let value = input.value.trim();
 
-   if (value === "") return;
+    if (value === "") return;
 
     let notes = JSON.parse(localStorage.getItem("notes")) || [];
-
     notes.push(value);
 
     localStorage.setItem("notes", JSON.stringify(notes));
 
-    
     input.value = "";
     displayNotes();
 }
 
-// Funkcja usuwania elementu
 function deleteNote(index) {
     let notes = JSON.parse(localStorage.getItem("notes")) || [];
     notes.splice(index, 1);
-    localStorage.setItem("notes", JSON.stringify(notes));
 
+    localStorage.setItem("notes", JSON.stringify(notes));
     displayNotes();
 }
 
-// Po załadowaniu strony wyświetlamy dane
 window.addEventListener("load", displayNotes);
-
-
-fetch("/send", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-        name: name,
-        surname: surname,
-        email: email,
-        message: message
-    })
-});
