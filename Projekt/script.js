@@ -13,15 +13,11 @@ function changeTheme() {
 function toggleProjekty() {
     let section = document.getElementById("projekty");
 
-    if (section.style.display === "none") {
-        section.style.display = "block";
-    } else {
-        section.style.display = "none";
-    }
+    section.style.display = (section.style.display === "none") ? "block" : "none";
 }
 
 
-// WALIDACJA + WYSYŁANIE FORMULARZA
+// FORMULARZ + WALIDACJA + SEND TO BACKEND
 document.getElementById("contactForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
@@ -31,57 +27,52 @@ document.getElementById("contactForm").addEventListener("submit", function(e) {
     let message = document.getElementById("message").value.trim();
     let error = document.getElementById("error");
 
-    error.style.color = "red";
     error.textContent = "";
+    error.style.color = "red";
 
-    // puste pola
+    // validation
     if (!name || !surname || !email || !message) {
         error.textContent = "Wszystkie pola są wymagane!";
         return;
     }
 
-    // cyfry w imieniu/nazwisku
     if (/\d/.test(name) || /\d/.test(surname)) {
         error.textContent = "Imię i nazwisko nie mogą zawierać cyfr!";
         return;
     }
 
-    // email
     let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
         error.textContent = "Niepoprawny email!";
         return;
     }
 
-    // ===== SEND TO BACKEND (NODE.JS) =====
+    // SEND TO SERVER (backend)
     fetch("/send", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            name: name,
-            surname: surname,
-            email: email,
-            message: message
+            name: document.getElementById("name").value.trim(),
+            surname: document.getElementById("surname").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            message: document.getElementById("message").value.trim()
         })
     });
 
-    // success message
     error.style.color = "green";
     error.textContent = "Formularz wysłany poprawnie!";
 
-    // reset form
     document.getElementById("contactForm").reset();
 });
 
 
 // FETCH JSON (skills + projects)
-fetch('data.json')
-    .then(response => response.json())
+fetch("data.json")
+    .then(res => res.json())
     .then(data => {
 
-        // Skills
         let skillsList = document.getElementById("skills");
         data.skills.forEach(skill => {
             let li = document.createElement("li");
@@ -89,7 +80,6 @@ fetch('data.json')
             skillsList.appendChild(li);
         });
 
-        // Projects
         let projectsList = document.getElementById("projects");
         data.projects.forEach(project => {
             let li = document.createElement("li");
@@ -98,11 +88,10 @@ fetch('data.json')
         });
 
     })
-    .catch(error => console.log("Błąd JSON:", error));
+    .catch(err => console.log("JSON error:", err));
 
 
-
-// LOCAL STORAGE
+// LOCAL STORAGE NOTES
 function displayNotes() {
     let list = document.getElementById("notesList");
     list.innerHTML = "";
@@ -128,7 +117,7 @@ function addNote() {
     let input = document.getElementById("noteInput");
     let value = input.value.trim();
 
-    if (value === "") return;
+    if (!value) return;
 
     let notes = JSON.parse(localStorage.getItem("notes")) || [];
     notes.push(value);
@@ -144,6 +133,7 @@ function deleteNote(index) {
     notes.splice(index, 1);
 
     localStorage.setItem("notes", JSON.stringify(notes));
+
     displayNotes();
 }
 
