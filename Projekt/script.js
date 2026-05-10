@@ -137,3 +137,17 @@ function deleteNote(index) {
 
 // Po załadowaniu strony wyświetlamy dane
 window.addEventListener("load", displayNotes);
+
+
+fetch("/send", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        name: name,
+        surname: surname,
+        email: email,
+        message: message
+    })
+});
